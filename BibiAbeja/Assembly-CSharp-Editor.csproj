@@ -1,20 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{DAC8AD4F-5F7E-40B0-9BBF-0F96A0F010B1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,7 +23,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,7 +31,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -50,107 +46,101 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\BaseActionEditor.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\BlendShapeAnimationActionEditor.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\Bool3DDrawer.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\GUIUtils.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\HiddenBehaviourEditor.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\MinMax2DDrawer.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\RealSenseMenu.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\RotationConstraintsDrawer.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\RotationMax2DDrawer.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\ScaleConstraintsDrawer.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\SenseToolkitAssetModificationProcessor.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\SenseToolkitManagerEditor.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\SpeechCommandDrawer.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\Transformation3dDrawer.cs" />
-    <Compile Include="Assets\RSUnityToolkit\Internals\Editor\VirtualWorldBoxActionEditor.cs" />
-    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-    <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
-    <None Include="Assets\RSUnityToolkit\Internals\Materials\Occlusion.shader" />
-    <Reference Include="UnityEditor.Advertisements">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.EditorTestsRunner">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.Networking">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.PlaymodeTestsRunner">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/Editor/UnityEditor.PlaymodeTestsRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PlaymodeTestsRunner">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.TreeEditor">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.Analytics">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/Editor/UnityEditor.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.HoloLens">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.HoloLens">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.VR">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VR">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
-    </Reference>
-    <Reference Include="LeapCSharp.NET3.5">
-      <HintPath>C:/Users/IoTITSON/Desktop/Bibi-Abeja-2018-18-01-2018-master/BibiAbeja/Assets/Plugins/LeapCSharp.NET3.5.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Data.Sqlite">
-      <HintPath>C:/Users/IoTITSON/Desktop/Bibi-Abeja-2018-18-01-2018-master/BibiAbeja/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data">
-      <HintPath>C:/Users/IoTITSON/Desktop/Bibi-Abeja-2018-18-01-2018-master/BibiAbeja/Assets/Plugins/System.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="libpxcclr.unity">
-      <HintPath>C:/Users/IoTITSON/Desktop/Bibi-Abeja-2018-18-01-2018-master/BibiAbeja/Assets/Plugins.Managed/libpxcclr.unity.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.Graphs">
-      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.Android.Extensions">
-      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
-      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
-    </Reference>
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\BaseActionEditor.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\BlendShapeAnimationActionEditor.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\Bool3DDrawer.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\GUIUtils.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\HiddenBehaviourEditor.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\MinMax2DDrawer.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\RealSenseMenu.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\RotationConstraintsDrawer.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\RotationMax2DDrawer.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\ScaleConstraintsDrawer.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\SenseToolkitAssetModificationProcessor.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\SenseToolkitManagerEditor.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\SpeechCommandDrawer.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\Transformation3dDrawer.cs" />
+     <Compile Include="Assets\RSUnityToolkit\Internals\Editor\VirtualWorldBoxActionEditor.cs" />
+     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
+     <None Include="Assets\RSUnityToolkit\Internals\Materials\Occlusion.shader" />
+ <Reference Include="UnityEditor.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
+ </Reference>
+ <Reference Include="nunit.framework">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.EditorTestsRunner">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Networking">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.PlaymodeTestsRunner">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/Editor/UnityEditor.PlaymodeTestsRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.PlaymodeTestsRunner">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.TreeEditor">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/Editor/UnityEditor.Analytics.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.HoloLens">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.HoloLens">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.VR">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VR">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+ </Reference>
+ <Reference Include="LeapCSharp.NET3.5">
+ <HintPath>C:/Users/IoTITSON/Desktop/Oislas/BeeSmart/BibiAbeja/Assets/Plugins/LeapCSharp.NET3.5.dll</HintPath>
+ </Reference>
+ <Reference Include="Mono.Data.Sqlite">
+ <HintPath>C:/Users/IoTITSON/Desktop/Oislas/BeeSmart/BibiAbeja/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data">
+ <HintPath>C:/Users/IoTITSON/Desktop/Oislas/BeeSmart/BibiAbeja/Assets/Plugins/System.Data.dll</HintPath>
+ </Reference>
+ <Reference Include="libpxcclr.unity">
+ <HintPath>C:/Users/IoTITSON/Desktop/Oislas/BeeSmart/BibiAbeja/Assets/Plugins.Managed/libpxcclr.unity.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Android.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{6011FB46-0333-9AE6-6079-A131B618B262}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
+      <Project>{6011FB46-0333-9AE6-6079-A131B618B262}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{B267C577-0E47-290D-E4C5-807BF0AD5C09}</Project>
-      <Name>Assembly-CSharp</Name>
-    </ProjectReference>
+      <Project>{B267C577-0E47-290D-E4C5-807BF0AD5C09}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
-      <Project>{3867A9B2-CE6F-F4FB-A0E1-FC1338E0FB0F}</Project>
-      <Name>Assembly-CSharp-Editor-firstpass</Name>
-    </ProjectReference>
+      <Project>{3867A9B2-CE6F-F4FB-A0E1-FC1338E0FB0F}</Project>      <Name>Assembly-CSharp-Editor-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -160,4 +150,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>

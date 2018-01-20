@@ -7,12 +7,6 @@ using System.Threading;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/*
- * 
- * ESTE ES EL DEL PROYECTO A DONDE VA DIRIGIDO, NO LO OLVIDES
- * 
- * 
- */
 public class HandCursor : MonoBehaviour
 {
 
@@ -24,7 +18,7 @@ public class HandCursor : MonoBehaviour
     private PXCMCursorData.GestureData gestureData;
     private PXCMPoint3DF32 adaptivePoints;
     private PXCMPoint3DF32 coordinates2d;
-    private PXCMPoint3DF32 imagePoint; // prueba de concepto de un método nuevo ----------------------------------------
+    private PXCMPoint3DF32 imagePoint;
     private Ray ray;
     private RaycastHit hit;
     private bool isCursorPen = true;
@@ -33,6 +27,7 @@ public class HandCursor : MonoBehaviour
     private EstadoJuego estadoJuego;
     private float tiempoDeJuego = 0;
     private int terminar = 0;
+    private string carpeta = "";
 
     public Texture2D cursorImage;
     public Vector3 mousePos;
@@ -45,11 +40,17 @@ public class HandCursor : MonoBehaviour
     public string pasoNombre;
     public GameObject bordePanel;
     public Texture2D[] manos = new Texture2D[4];
+    public GameObject txtRetroDirecta;
+    public GameObject btnSiguiente;
+    public GameObject btnReintentar;
+    public GameObject btnSalir;
+    public Text txtPalabraFinal;
+    public GameObject PanelSilabasEspacios;
 
-    public string silabaAgarrada;
-    public string[] silabas;
-    public int tamanioSilabas;
-    public int aciertosSilabas = 0;
+    public string fichaAgarrada;
+    public string[] fichas;
+    public int tamanioFichas;
+    public int aciertosFichas = 0;
     public string txtPalabra;
 
     // variable para mantener conteo de un segundo en el juego
@@ -67,21 +68,41 @@ public class HandCursor : MonoBehaviour
             Destroy(gameObject);
         }
         pasoNombre = SceneManager.GetActiveScene().name;
-        if (pasoNombre == "paso 3")
+        if (pasoNombre == "paso 3" || pasoNombre == "paso 4")
         {
             // Se obtienen la palabra que se está jugando actualmente y el componente estado juego
             txtPalabra = EstadoJuego.estadoJuego.palabra;
             estadoJuego = EstadoJuego.estadoJuego;
-            // Se inicia el arreglo de sílabas al tamaño necesario con sus sílabas necesarias
-            silabas = estadoJuego.obtenerSilabasPalabra(txtPalabra);
-            tamanioSilabas = silabas.Length;
-            Debug.Log("Palabra que se está jugando actualmente: " + txtPalabra);
-            Debug.Log("Valor de estado juego: " + estadoJuego);
-            for (int i = 0; i < tamanioSilabas; i++)
+            // Se inicia el arreglo de sílabas al tamaño necesario con sus sílabas o letras necesarias
+            if (pasoNombre == "paso 3")
             {
-                Debug.Log("Arreglo de sílabas: " + silabas[i].ToString());
+                fichas = estadoJuego.obtenerSilabasPalabra(txtPalabra);
+                tamanioFichas = fichas.Length;
+                Debug.Log("Palabra que se está jugando actualmente: " + txtPalabra);
+                Debug.Log("Valor de estado juego: " + estadoJuego);
+                for (int i = 0; i < tamanioFichas; i++)
+                {
+                    Debug.Log("Arreglo de sílabas: " + fichas[i].ToString());
+                }
+                Debug.Log("Tamaño de sílabas: " + tamanioFichas);
             }
-            Debug.Log("Tamaño de sílabas: " + tamanioSilabas);
+            else if (pasoNombre == "paso 4")
+            {
+                char[] toSplit = txtPalabra.ToCharArray();
+                fichas = new string[toSplit.Length];
+                for (int i = 0; i < toSplit.Length; i++)
+                {
+                    fichas[i] = toSplit[i].ToString();
+                }
+                tamanioFichas = fichas.Length;
+                Debug.Log("Palabra que se está jugando actualmente: " + txtPalabra);
+                Debug.Log("Valor de estado juego: " + estadoJuego);
+                for (int i = 0; i < tamanioFichas; i++)
+                {
+                    Debug.Log("Arreglo de sílabas: " + fichas[i].ToString());
+                }
+                Debug.Log("Tamaño de sílabas: " + tamanioFichas);
+            }
             // Se asigna la imagen al cursor principal
             cursorImage = Resources.Load("Textures/mano1", typeof(Texture2D)) as Texture2D;
             // Se reparten todas las piezas del tablero
@@ -95,11 +116,11 @@ public class HandCursor : MonoBehaviour
             reproducirSonido(sonido, audioClip);
             GameObject.Find("btnAudio").GetComponent<AudioSource>().clip = audioClip;
 
-            // Se esconde el botón de siguiente puesto que no tiene funcionalidad a la hora de iniciar el juego
-            GameObject.Find("btnSiguiente").gameObject.SetActive(false);
+            // Se esconden los botones innecesarios al inicio del juego
+            btnSiguiente.SetActive(false);
+            txtRetroDirecta.SetActive(false);
         }
     }
-
 
     private void Start()
     {
@@ -108,7 +129,6 @@ public class HandCursor : MonoBehaviour
         ConfigureRealSense();
         Update();
     }
-
 
     void OnMouseEnter()
     {
@@ -146,6 +166,7 @@ public class HandCursor : MonoBehaviour
         tiempoDeJuego += Time.deltaTime;
         StartCoroutine("toUpdate");
     }
+
     PXCMImage image;
     IEnumerator toUpdate()
     {
@@ -210,8 +231,6 @@ public class HandCursor : MonoBehaviour
 
                 //Debug.Log("Resolución actual: " + Screen.currentResolution.height + ", " + Screen.currentResolution.width);
 
-
-
                 adaptivePoints = iCursor.QueryAdaptivePoint();
                 imagePoint = Camera.main.WorldToScreenPoint(iCursor.QueryCursorPointImage());
 
@@ -234,7 +253,6 @@ public class HandCursor : MonoBehaviour
             {
                 bodySide = PXCMCursorData.BodySideType.BODY_SIDE_UNKNOWN;
             }
-
             // Resume next frame processing
             cursorData.Dispose();
             sm.ReleaseFrame();
@@ -304,8 +322,8 @@ public class HandCursor : MonoBehaviour
                 }
             }
 
-            // Acciones a ejecutar para la escena del paso 3
-            if (pasoNombre == "paso 3")
+            // Acciones a ejecutar para la escena del paso 3 y paso 4
+            else if (pasoNombre == "paso 3" || pasoNombre == "paso 4")
             {
                 if (hit.collider != null)
                 {
@@ -361,37 +379,63 @@ public class HandCursor : MonoBehaviour
     public void repartirPiezas()
     {
         // Se declara un arreglo de sprites para guardar las imagenes a cargar
-        Sprite[] arregloSprites = new Sprite[5];
-        string[] piezasAlAzar = { "cu", "trian", "tan", "es", "cua" };
-        // Se itera cuantas veces se necesite para llenar el tamaño de sílabas posibles
-        for (int i = 0; i < 5; i++)
+        Sprite[] arregloSprites = null;
+        string[] piezasAlAzar = null;
+        int numeroRandom = 0;
+        int iterador = 0;
+        if (pasoNombre == "paso 3")
+        {
+            carpeta = "Silabas";
+            numeroRandom = 4;
+            arregloSprites = new Sprite[5];
+            piezasAlAzar = new string[]{ "cua", "trian", "tan", "lla", "cir" };
+            iterador = piezasAlAzar.Length;
+        }
+        else if (pasoNombre == "paso 4")
+        {
+            carpeta = "Letras";
+            numeroRandom = 11;
+            arregloSprites = new Sprite[12];
+            piezasAlAzar = new string[] { "c","v","m","s","p","q","w","r","t","y","g","j"};
+            iterador = piezasAlAzar.Length;
+        }
+        Debug.Log("valor del iterador para repartir piezas: " + iterador);
+        // Se itera cuantas veces se necesite para llenar el tamaño de fichas posibles
+        for (int i = 0; i < iterador; i++)
         {
             // Primero se añaden las piezas que corresponden
-            if (i < tamanioSilabas)
+            if (i < tamanioFichas)
             {
-                arregloSprites[i] = (Resources.Load("Sprites/" + silabas[i].ToString(), typeof(Sprite)) as Sprite);
+                arregloSprites[i] = (Resources.Load("Sprites/Fichas/"+carpeta+"/" + fichas[i].ToString(), typeof(Sprite)) as Sprite);
             }
             // Si se requieren menos espacios de los máximos, se llenan los espacios disponibles con piezas al azar
-            else if (i >= tamanioSilabas && i < 5)
+            else if (i >= tamanioFichas && i < iterador)
             {
-                int random = UnityEngine.Random.Range(0, 4);
-                arregloSprites[i] = (Resources.Load("Sprites/" + piezasAlAzar[random].ToString(), typeof(Sprite)) as Sprite);
+                int random = UnityEngine.Random.Range(0, numeroRandom);
+                arregloSprites[i] = (Resources.Load("Sprites/Fichas/" + carpeta + "/" + piezasAlAzar[random].ToString(), typeof(Sprite)) as Sprite);
             }
         }
         // Se crea una lista de índices para cargar al azar los índices de los espacios en blanco
         List<int> espacioIndices = new List<int>();
-        espacioIndices.AddRange(new int[] { 1, 2, 3, 4, 5 });
+        if (pasoNombre == "paso 3")
+        {
+            espacioIndices.AddRange(new int[] { 1, 2, 3, 4, 5 });
+        }
+        else if (pasoNombre == "paso 4")
+        {
+            espacioIndices.AddRange(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
+        }
         // Se cargan los sprites dentro de las piezas necesitadas
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < iterador; i++)
         {
             // Si no hay elementos nulos, se establecen los espacios vacíos al valor del sprite en la escena
             if (arregloSprites[i] != null)
             {
-                // Se busca un índice entre 1 y 5
+                // Se busca un índice entre 1 y el máximo de fichas
                 int num = UnityEngine.Random.Range(0, espacioIndices.Count);
                 // Se establece ese número al azar como el índice para buscar en el arreglo de sprites
                 int indice = espacioIndices[num];
-                // Se encuentra el espacio en blanco para poner un sprite en la pieza de acuerdo a los valores al azar de 1 a 5
+                // Se encuentra el espacio en blanco para poner un sprite en la pieza de acuerdo a los valores al azar
                 GameObject espacio = GameObject.Find("SilabaLetras" + indice);
                 // Se establece el sprite encontrado en la pieza vacía encontrada
                 SpriteRenderer imagenSilaba = espacio.GetComponent<SpriteRenderer>();
@@ -402,7 +446,7 @@ public class HandCursor : MonoBehaviour
         }
 
         // Se desactivan los espacios para fichas que no son necesarios
-        int espaciosDesactivables = 5 - tamanioSilabas; int x = 5; // Variables para manejar los espacios a desactivar y los nombres de estos Ej: SilabaEspacio5
+        int espaciosDesactivables = iterador - tamanioFichas; int x = iterador; // Variables para manejar los espacios a desactivar y los nombres de estos Ej: SilabaEspacio5
         for (int i = 0; i < espaciosDesactivables; i++)
         {
             string nombre = "SilabaEspacio" + x.ToString();
@@ -445,7 +489,7 @@ public class HandCursor : MonoBehaviour
                     GameObject objetoSilaba = hit.transform.gameObject;
                     // Se obtiene el nombre del source image que tiene la sílaba que se tocó
                     string silaba = objetoSilaba.GetComponent<SpriteRenderer>().sprite.name;
-                    silabaAgarrada = silaba;
+                    fichaAgarrada = silaba;
                     // Se carga la nueva textura y se le da el tamaño adecuado
                     Texture2D imagen = Resources.Load("Textures/" + silaba, typeof(Texture2D)) as Texture2D;
                     cursorImage = imagen;
@@ -508,16 +552,16 @@ public class HandCursor : MonoBehaviour
 
                     int indice = int.Parse(espacioVacio.name.Substring(13));
                     indice -= 1;
-                    if (silabas[indice].Equals(silabaAgarrada))
+                    if (fichas[indice].Equals(fichaAgarrada))
                     {
                         SpriteRenderer imagenSilaba = espacioVacio.GetComponent<SpriteRenderer>();
-                        imagenSilaba.sprite = Resources.Load("Sprites/" + silabaAgarrada, typeof(Sprite)) as Sprite;
+                        imagenSilaba.sprite = Resources.Load("Sprites/Fichas/" + carpeta + "/" + fichaAgarrada, typeof(Sprite)) as Sprite;
 
                         // Una vez colocada la pieza en su lugar, se devuelve al cursor la imagen de la pluma
                         cursorImage = Resources.Load("Textures/mano1", typeof(Texture2D)) as Texture2D;
 
                         // Se aumentan los aciertos para saber cuándo terminará el ejercicio
-                        aciertosSilabas++;
+                        aciertosFichas++;
 
                         // Atributos de semáforo cambian de estado
                         isCursorPen = true;
@@ -526,7 +570,7 @@ public class HandCursor : MonoBehaviour
 
                         StartCoroutine("tiempoLibre");
 
-                        if (aciertosSilabas == tamanioSilabas)
+                        if (aciertosFichas == tamanioFichas)
                             ganar();
                         else
                             Debug.Log("Aún no has ganado");
@@ -594,7 +638,7 @@ public class HandCursor : MonoBehaviour
                 // Se obtiene el GameObject del espacio vacío, después se coloca la pieza del cursor sobre él
                 GameObject espacioVacio = hit.transform.gameObject;
                 SpriteRenderer imagenSilaba = espacioVacio.GetComponent<SpriteRenderer>();
-                imagenSilaba.sprite = Resources.Load("Sprites/" + silabaAgarrada, typeof(Sprite)) as Sprite;
+                imagenSilaba.sprite = Resources.Load("Sprites/Fichas/" + carpeta + "/" + fichaAgarrada, typeof(Sprite)) as Sprite;
 
                 // Una vez colocada la pieza en su lugar, se devuelve al cursor la imagen de la pluma
                 cursorImage = Resources.Load("Textures/mano1", typeof(Texture2D)) as Texture2D;
@@ -620,7 +664,7 @@ public class HandCursor : MonoBehaviour
     /// <returns></returns>
     IEnumerator tiempoLibre()
     {
-        float tiempoDeEspera = 1.0f;
+        float tiempoDeEspera = 2.0f;
         while (tiempoDeEspera > 0)
         {
             Debug.Log("Tiempo de espera para una nueva acción del cursor: " + tiempoDeEspera);
@@ -636,6 +680,13 @@ public class HandCursor : MonoBehaviour
     /// </summary>
     public void ganar()
     {
+        txtRetroDirecta.SetActive(true);
+        btnSiguiente.SetActive(true);
+        btnReintentar.SetActive(false);
+        btnSalir.SetActive(false);
+        PanelSilabasEspacios.SetActive(false);
+        txtPalabraFinal.gameObject.SetActive(true);
+        txtPalabraFinal.text = txtPalabra.ToString();
         Debug.Log("Has ganado " + tiempoDeJuego.ToString());
         EstadoJuego.estadoJuego.registrarIntento(tiempoDeJuego, 1);
     }
