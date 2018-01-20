@@ -282,7 +282,7 @@ public class Checador : MonoBehaviour
 
             if (segundoContacto == true)
             {
-                UnityEngine.Debug.Log("3 Segundo contacto es: " + segundoContacto);
+              //  UnityEngine.Debug.Log("3 Segundo contacto es: " + segundoContacto);
 
                 if (reversa == true)
                 {
@@ -298,7 +298,7 @@ public class Checador : MonoBehaviour
                         }
 
                     }
-                    UnityEngine.Debug.Log("4 el error, estara antes de entrar al verificar contacto reversa?");
+                    //UnityEngine.Debug.Log("4 el error, estara antes de entrar al verificar contacto reversa?");
                     VerificarContactoReversa(id);
 
                 }
@@ -361,12 +361,12 @@ public class Checador : MonoBehaviour
 
             if (id == idPuntoActual + 1)
             {
-                UnityEngine.Debug.Log("Hue3: no reversa");
+             //   UnityEngine.Debug.Log("Hue3: no reversa");
                 return false;
             }
             else if (id < idPuntoActual)
             {
-                UnityEngine.Debug.Log("Hue3: reversa");
+               // UnityEngine.Debug.Log("Hue3: reversa");
                 return true;
             }
         }
@@ -424,7 +424,7 @@ public class Checador : MonoBehaviour
         }
         aciertos++;
         retroPositiva();
-        UnityEngine.Debug.Log("Primer punto = " + idPrimerPunto);
+       // UnityEngine.Debug.Log("Primer punto = " + idPrimerPunto);
 
 
 
@@ -444,7 +444,7 @@ public class Checador : MonoBehaviour
             }
             idPuntoActual = id;
 
-            UnityEngine.Debug.Log("No reversa: Punto actual= " + idPuntoActual + ", Siguiente punto= " + idPuntoSiguiente);       
+            //UnityEngine.Debug.Log("No reversa: Punto actual= " + idPuntoActual + ", Siguiente punto= " + idPuntoSiguiente);       
 
             aciertos++;
             retroPositiva();
@@ -457,8 +457,8 @@ public class Checador : MonoBehaviour
 
     public void retroPositiva() {
         Material m = Resources.Load("Materials/puntoActivo") as Material;
-        UnityEngine.Debug.Log(GameObject.Find("boton" + idPuntoActual).GetComponent<MeshRenderer>().material);
-        UnityEngine.Debug.Log(m);
+        //UnityEngine.Debug.Log(GameObject.Find("boton" + idPuntoActual).GetComponent<MeshRenderer>().material);
+        //UnityEngine.Debug.Log(m);
         GameObject.Find("boton" + idPuntoActual).GetComponent<MeshRenderer>().material = m;
         AudioClip sonido;
         sonido = Resources.Load<AudioClip>("Sonidos/EfectoPositivo2");
@@ -481,10 +481,9 @@ public class Checador : MonoBehaviour
             }
             idPuntoActual = id;
 
-            UnityEngine.Debug.Log("Reversa: Punto actual= " + idPuntoActual + ", Siguiente punto= " + idPuntoSiguiente);
+           // UnityEngine.Debug.Log("Reversa: Punto actual= " + idPuntoActual + ", Siguiente punto= " + idPuntoSiguiente);
             aciertos++;
             retroPositiva();
-            UnityEngine.Debug.Log(aciertos);
 
         }
     }
@@ -548,7 +547,7 @@ public class Checador : MonoBehaviour
             UnityEngine.Debug.Log("asddsadas");
             EstadoJuego.estadoJuego.registrarIntento(duracion, 1);
             //Por aquí debería guardar el intento
-            UnityEngine.Debug.Log("Felicidades terminaste!");
+           // UnityEngine.Debug.Log("Felicidades terminaste!");
 
             string palabra = EstadoJuego.estadoJuego.palabra;
             GameObject.Find(palabra).GetComponent<SpriteRenderer>().sprite = Resources.Load("Textures/"+palabra+"R", typeof(Sprite)) as Sprite;

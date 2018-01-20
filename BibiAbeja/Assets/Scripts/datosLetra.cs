@@ -6,8 +6,11 @@ public class datosLetra : MonoBehaviour
 {
     public GameObject[] puntos;
     public GameObject[] flechas;
+    public string nombreLetra;
     public string tipoLetra;
     public int puntoIdEspecial;
+    private Sprite newSprite;
+    private SpriteRenderer mySpriteRenderer;
     Material m;
 
     //indice de flechas
@@ -23,6 +26,8 @@ public class datosLetra : MonoBehaviour
     {
         m = Resources.Load("Materials/punto") as Material;
         desactivarTodo();
+        mySpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        newSprite = Resources.Load<Sprite>("Resources/Textures/Letras/LetrasRojas/letra" + nombreLetra);
         if (tipoLetra.Equals("unTrazo"))
         {
             puntoIdEspecial = 0;
@@ -126,5 +131,10 @@ public class datosLetra : MonoBehaviour
             Debug.Log("Activando emision:");
             puntos[0].GetComponent<Puntos>().PSEnableEmission();
         }
+    }
+
+    public void colorearRojo()
+    {
+        mySpriteRenderer.sprite = newSprite;
     }
 }

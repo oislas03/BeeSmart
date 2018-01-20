@@ -277,7 +277,7 @@ public class HandCursor : MonoBehaviour
                 if (hit.collider.tag == "areaDibujable")
                 {
                     GameObject.Find("DrawLine").GetComponent<DrawLine>().Dibujar(coordinates2d);
-                    Debug.Log("Coordinates2d en HandCursor: " + coordinates2d.x + ", " + coordinates2d.y);
+                    //Debug.Log("Coordinates2d en HandCursor: " + coordinates2d.x + ", " + coordinates2d.y);
                 }
             }
             else if (pasoNombre == "paso 2")

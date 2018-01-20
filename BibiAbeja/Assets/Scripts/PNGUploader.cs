@@ -32,14 +32,14 @@ public class PNGUploader : MonoBehaviour {
         // Read screen contents into the texture
         tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
         tex.Apply();
-        Debug.Log(2);
+     //   Debug.Log(2);
 
         // Encode texture into PNG
         byte[] bytes = tex.EncodeToPNG();
         Object.Destroy(tex);
-        Debug.Log(Application.dataPath + "/StreamingAssets/Screenshots/"+EstadoJuego.estadoJuego.path);
+       // Debug.Log(Application.dataPath + "/StreamingAssets/Screenshots/"+EstadoJuego.estadoJuego.path);
         // For testing purposes, also write to a file in the project folder
-        Debug.Log(3);
+       // Debug.Log(3);
 
         File.WriteAllBytes(Application.dataPath + "/StreamingAssets/Screenshots/" + EstadoJuego.estadoJuego.path, bytes);
 

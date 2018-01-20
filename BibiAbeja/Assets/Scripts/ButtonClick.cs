@@ -12,7 +12,7 @@ public class ButtonClick : MonoBehaviour {
 
 
     void  OnMouseDown() {
-        Debug.Log(btnName);
+
             GetComponent<AudioSource>().Play();
 
         if (btnName == "btnSiguiente")
@@ -39,7 +39,6 @@ public class ButtonClick : MonoBehaviour {
         }
         else if (btnName == "btnSalirR")
         {
-            Debug.Log("Entro");
 
             this.cargar = "reconocimiento";
              GetComponent<AudioSource>().Play();

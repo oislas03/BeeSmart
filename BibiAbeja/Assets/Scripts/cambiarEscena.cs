@@ -59,7 +59,7 @@ public class cambiarEscena : MonoBehaviour
         }
         else if (nameScene.Equals("seleccionarUsuario"))
         {
-            sceneName = btnName.Equals("btnNuevo") ? "escribirNombre" : btnName.Equals("btnSalir") ? "Main" : btnName.Equals("btnCargar") ? "eligeNivel" : "Main";
+            sceneName = btnName.Equals("btnNuevo") ? "escribirNombre" : btnName.Equals("btnSalir") ? "Main" : btnName.Equals("btnCargar") ? "eligeNivel" : btnName.Equals("btnReporte") ? "reporte": "Main";
 
             SceneManager.LoadScene(sceneName);
 
@@ -135,6 +135,7 @@ public class cambiarEscena : MonoBehaviour
 
             if (btnName.Equals("siguiente"))
             {
+                Debug.Log(EstadoJuego.estadoJuego.NumIntentos + "     =   " + EstadoJuego.estadoJuego.NumIntentosActual);
 
                 //Este if  es por si ya no quedan intentos
                 if (EstadoJuego.estadoJuego.NumIntentos == EstadoJuego.estadoJuego.NumIntentosActual)

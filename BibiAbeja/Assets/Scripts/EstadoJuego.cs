@@ -101,6 +101,13 @@ public class EstadoJuego : MonoBehaviour {
     }
 
 
+    public int obtenerultimaIndiceImg() {
+        int id = this.conexion.obtenerUltimoIndiceImg(this.ActivePlayer.id, this.palabra);
+        Debug.Log("indice"+id);
+        return id <0 ? 1 : id;
+    }
+
+
 
     public void registrarIntento(float duracion, int exitoso)
     {
@@ -111,7 +118,7 @@ public class EstadoJuego : MonoBehaviour {
         }
         int indiceM = conexion.obtenerIndiceMaximo(this.ActivePlayer.id, this.palabra, this.nivel);
         this.path = nivel <= 2 ? this.ActivePlayer.id + "_" + this.palabra + "_" + (indiceM + 1) + "_" + "Nivel" + this.nivel + ".png" : "";
-        Debug.Log(this.ActivePlayer.id + this.palabra + duracion + path + exitoso);
+       // Debug.Log(this.ActivePlayer.id + this.palabra + duracion + path + exitoso);
 
         int playerActive = ActivePlayer.id;
 
@@ -199,7 +206,7 @@ public class EstadoJuego : MonoBehaviour {
 
         this.numIntentos = divisor == 4 ? 6 : divisor == 3 ? 4 : divisor == 2 ? 2 : divisor == 1 ? 1 : divisor == 0 ? 0:0;
 
-        Debug.Log(numIntentos+ "<---------- intentos");
+        //Debug.Log(numIntentos+ "<---------- intentos");
 
         this.numIntentosActual = 0;
        
@@ -256,6 +263,48 @@ public class EstadoJuego : MonoBehaviour {
 
     }
 
+    public void cargarTemas(Dropdown menuTema)
+    {
+        List<string> Temas = conexion.obtenerTemas();
+        menuTema.options.Clear();
+        menuTema.options.Add(new Dropdown.OptionData() { text = "Ninguno" });
+
+        foreach (String tema in Temas)
+        {
+            menuTema.options.Add(new Dropdown.OptionData() { text = tema });
+
+        }
+        //string nameScene = SceneManager.GetActiveScene().name;
+
+        //if (nameScene.Equals("reporte"))
+        //{
+        //    menuTema.options.Add(new Dropdown.OptionData() { text = "" });
+
+        //}
+
+
+    }
+
+    public void cargarNinios(Dropdown menuNinio)
+    {
+        List<string> Temas = conexion.obtenerNinios();
+        menuNinio.options.Clear();
+        menuNinio.options.Add(new Dropdown.OptionData() { text = "Ninguno" });
+
+        foreach (String tema in Temas)
+        {
+            menuNinio.options.Add(new Dropdown.OptionData() { text = tema });
+
+        }
+
+        //string nameScene = SceneManager.GetActiveScene().name;
+
+        //menuNinio.options.Add(new Dropdown.OptionData() { text = "" });
+
+        //if (nameScene.Equals("reporte")){
+
+        //}
+    }
 
 
     public string obtenerPalabraSiguiente()
@@ -332,6 +381,32 @@ public class EstadoJuego : MonoBehaviour {
 
 
         return silabas;
+    }
+
+    public List<Reporte> cargarReporteDelNinio(int ninio, string palabra, string nivel, string turno)
+    {
+        return conexion.generarReporteNinio(ninio, palabra, nivel, turno);
+    }
+
+    public double calcularPorcentaje(int ninio, string palabra, string nivel, string turno)
+    {
+        double porcentaje = 0;
+        double x = 0;
+        double y = 0;
+        x = conexion.generarReporteNinio(ninio, palabra, nivel, turno).Count;
+        y = conexion.generarReportePalabraNinio(ninio, palabra).Count;
+        Debug.Log(x);
+        Debug.Log(y);
+        if (x == 0.0 && y == 0.0)
+        {
+            porcentaje = 0.0;
+        }
+        else
+        {
+            porcentaje = (x / y) * 100;
+        }
+        Debug.Log(porcentaje);
+        return porcentaje;
     }
 }
 
@@ -450,6 +525,20 @@ public class Imagen
         {
             id = value;
         }
+    }
+}
+
+public class Reporte
+{
+    public string fecha;
+    public double duracion;
+    public string path;
+
+    public Reporte(string fecha, double duracion, string path)
+    {
+        this.fecha = fecha;
+        this.duracion = duracion;
+        this.path = path;
     }
 }
 

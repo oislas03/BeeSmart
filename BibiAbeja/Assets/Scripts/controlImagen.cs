@@ -27,16 +27,18 @@ public class controlImagen : MonoBehaviour
         //EstadoJuego.estadoJuego.setNivel(1);
         //EstadoJuego.estadoJuego.setUsuario(3);
         //EstadoJuego.estadoJuego.setPalabra("triangulo");
-        //EstadoJuego.estadoJuego.NumIntentos = 1;
-        //EstadoJuego.estadoJuego.NumIntentosActual = 1;
+        //EstadoJuego.estadoJuego.NumIntentos = 6;
+        //EstadoJuego.estadoJuego.NumIntentosActual = 6;
 
 
 
         String palabra = EstadoJuego.estadoJuego.palabra;
-        path = palabra + "Completo";
+        path =palabra+ EstadoJuego.estadoJuego.obtenerultimaIndiceImg();
         numParticiones = EstadoJuego.estadoJuego.NumIntentos;
         int indiceParticiones = EstadoJuego.estadoJuego.NumIntentosActual-1;
         //imgDesbloqueadas = EstadoJuego.estadoJuego.cargarImagenesDesbloqueadasporPalabra();
+
+        Debug.Log("Este es el path"+path);
 
         GameObject.Find("marco").transform.FindChild("parte1").transform.FindChild("Imagen1").GetComponent<Image>().enabled = false;
         GameObject.Find("marco").transform.FindChild("parte2").transform.FindChild("Imagen2").GetComponent<Image>().enabled = false;
@@ -295,6 +297,14 @@ public class controlImagen : MonoBehaviour
                 GameObject.Find("marco").transform.FindChild("parte6").transform.FindChild("Imagen6").GetComponent<Image>().enabled = true;
                 GameObject.Find("marco").transform.FindChild("parte7").transform.FindChild("Imagen7").GetComponent<Image>().enabled = true;
                 GameObject.Find("marco").transform.FindChild("parte8").transform.FindChild("Imagen8").GetComponent<Image>().enabled = true;
+                imagenes[0].colocarImagen(path);
+                imagenes[1].colocarImagen(path);
+                imagenes[2].colocarImagen(path);
+                imagenes[3].colocarImagen(path);
+                imagenes[4].colocarImagen(path);
+                imagenes[5].colocarImagen(path);
+                imagenes[6].colocarImagen(path);
+                imagenes[7].colocarImagen(path);
 
                 break;
             case 2:

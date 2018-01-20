@@ -206,11 +206,7 @@ public class ChecadorLetras : MonoBehaviour
 
 
         //todo esto es por la primera letra
-
-
-
-
-
+        
         updateTimer = true;
         duracion = 0.0f;
         terminar = true;
@@ -538,9 +534,6 @@ public class ChecadorLetras : MonoBehaviour
 
     public void ReintentarD()
     {
-
-
-
         //Aquí debería guardar el intento
         duracion = 0;
 
@@ -562,6 +555,7 @@ public class ChecadorLetras : MonoBehaviour
     {
         if (terminar)
         {
+            UnityEngine.Debug.Log("hey entre aqui al terminar?");
             GameObject go = GameObject.Find("Canvas");
 
 
@@ -599,7 +593,10 @@ public class ChecadorLetras : MonoBehaviour
 
             duracion = 0;
             //GameObject.Find("handcursor").GetComponent<HandCursor>().primeraVez = true;
-
+            //for (int y = 0; y < letras.Length; y++)
+            //{
+            //    letras[y].GetComponent<datosLetra>().colorearRojo();
+            //}
 
         }
     }

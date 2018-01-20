@@ -106,7 +106,61 @@ public class conexionDB
 
     }
 
+    public List<String> obtenerTemas()
+    {
 
+        List<String> temas = new List<String>();
+        IDbConnection dbconn;
+        dbconn = (IDbConnection)new SqliteConnection(conn);
+
+        dbconn.Open(); //Open connection to the database.
+
+        IDbCommand dbcmd = dbconn.CreateCommand();
+        string sqlQuery = "SELECT DISTINCT tema FROM Palabras";
+        dbcmd.CommandText = sqlQuery;
+        IDataReader reader = dbcmd.ExecuteReader();
+        while (reader.Read())
+        {
+            string tema = reader.GetString(0);
+
+            temas.Add(tema);
+        }
+        reader.Close();
+        reader = null;
+        dbcmd.Dispose();
+        dbcmd = null;
+        dbconn.Close();
+        dbconn = null;
+        return temas;
+
+    }
+
+    public List<String> obtenerNinios()
+    {
+        List<String> ninios = new List<String>();
+        IDbConnection dbconn;
+        dbconn = (IDbConnection)new SqliteConnection(conn);
+
+        dbconn.Open(); //Open connection to the database.
+
+        IDbCommand dbcmd = dbconn.CreateCommand();
+        string sqlQuery = "SELECT DISTINCT nombre FROM Usuarios";
+        dbcmd.CommandText = sqlQuery;
+        IDataReader reader = dbcmd.ExecuteReader();
+        while (reader.Read())
+        {
+            string ninio = reader.GetString(0);
+
+            ninios.Add(ninio);
+        }
+        reader.Close();
+        reader = null;
+        dbcmd.Dispose();
+        dbcmd = null;
+        dbconn.Close();
+        dbconn = null;
+        return ninios;
+    }
 
     public List<Imagen> obtenerImagenes()
     {
@@ -213,7 +267,7 @@ public class conexionDB
         dbconn.Open(); //Open connection to the database.
 
         IDbCommand dbcmd = dbconn.CreateCommand();
-        string sqlQuery = "select Imagenes.id, Imagenes.numParte, Imagenes.nombre, Imagenes.path from Imagenes JOIN ImagenesDesbloqueadas ON( Imagenes.id= ImagenesDesbloqueadas.idImagen) AND (ImagenesDesbloqueadas.idUsuario=" + idUsuario + ") AND (visible='si')";
+        string sqlQuery = "select Imagenes.id, Imagenes.numParte, Imagenes.nombre, Imagenes.path from Imagenes JOIN ImagenesDesbloqueadas ON( Imagenes.id= ImagenesDesbloqueadas.idImagen) AND (ImagenesDesbloqueadas.idUsuario=" + idUsuario + ") AND (divisor= numCompletado)";
         dbcmd.CommandText = sqlQuery;
         IDataReader reader = dbcmd.ExecuteReader();
         while (reader.Read())
@@ -323,6 +377,88 @@ public class conexionDB
 
     }
 
+    public List<Reporte> generarReporteNinio(int idUsuario, string palabra, string nivel, string turno)
+    {
+        string fecha;
+        int exitoso = 1;
+        int nivel2 = Int32.Parse(nivel);
+        List<Reporte> reportes = new List<Reporte>();
+        IDbConnection dbconn;
+        dbconn = (IDbConnection)new SqliteConnection(conn);
+
+        dbconn.Open();
+
+
+        IDbCommand dbcmd = dbconn.CreateCommand();
+        string sqlQuery = "SELECT fecha,tiempoDuracion,trazoPath FROM Intentos WHERE idUsuario=" + idUsuario + " AND exitoso= " + exitoso + " AND palabra= " + "'" + palabra + "'" + " AND nivel= " + nivel2 + " AND turno= " + "'" + turno + "'";
+        dbcmd.CommandText = sqlQuery;
+        IDataReader reader = dbcmd.ExecuteReader();
+        while (reader.Read())
+        {
+            if (reader.IsDBNull(0))
+            {
+                fecha = "No hay fecha disponible";
+            }
+            else
+            {
+                fecha = reader.GetString(0);
+            }
+            double tiempo = reader.GetDouble(1);
+            string path = reader.GetString(2);
+
+            reportes.Add(new Reporte(fecha, tiempo, path));
+
+        }
+        // dbcmd.ExecuteNonQuery();
+        reader.Close();
+        reader = null;
+        dbcmd.Dispose();
+        dbcmd = null;
+        dbconn.Close();
+        dbconn = null;
+        return reportes;
+    }
+
+    public List<Reporte> generarReportePalabraNinio(int idUsuario, string palabra)
+    {
+        string fecha;
+        List<Reporte> reportes = new List<Reporte>();
+        IDbConnection dbconn;
+        dbconn = (IDbConnection)new SqliteConnection(conn);
+
+        dbconn.Open();
+
+
+        IDbCommand dbcmd = dbconn.CreateCommand();
+        string sqlQuery = "SELECT fecha,tiempoDuracion,trazoPath FROM Intentos WHERE idUsuario=" + idUsuario + " AND palabra= " + "'" + palabra + "'";
+        dbcmd.CommandText = sqlQuery;
+        IDataReader reader = dbcmd.ExecuteReader();
+        while (reader.Read())
+        {
+            if (reader.IsDBNull(0))
+            {
+                fecha = "No hay fecha disponible";
+            }
+            else
+            {
+                fecha = reader.GetString(0);
+            }
+            double tiempo = reader.GetDouble(1);
+            string path = reader.GetString(2);
+
+            reportes.Add(new Reporte(fecha, tiempo, path));
+
+        }
+        // dbcmd.ExecuteNonQuery();
+        reader.Close();
+        reader = null;
+        dbcmd.Dispose();
+        dbcmd = null;
+        dbconn.Close();
+        dbconn = null;
+        return reportes;
+    }
+
     public String obtenerSilabasPalabra(string palabra)
     {
         IDbConnection dbconn;
@@ -386,6 +522,44 @@ public class conexionDB
         return id;
     }
 
+    public int obtenerUltimoIndiceImg(int idUsuario, string palabra)
+    {
+        IDbConnection dbconn;
+        dbconn = (IDbConnection)new SqliteConnection(conn);
+
+        dbconn.Open(); //Open connection to the database.
+        int id = -1;
+        IDbCommand dbcmd = dbconn.CreateCommand();
+        string sqlQuery = "SELECT CAST (CASE WHEN  MAX(idImagen) IS NOT NULL  THEN numParte  ELSE (-1) END AS INTEGER) AS MAXIMO"
+        + " from Imagenes JOIN ImagenesDesbloqueadas  ON(Imagenes.id = ImagenesDesbloqueadas.idImagen)AND(Imagenes.nombre = '" + palabra + "') AND(ImagenesDesbloqueadas.idUsuario = '" + idUsuario + "')";
+
+        dbcmd.CommandText = sqlQuery;
+
+        IDataReader reader = dbcmd.ExecuteReader();
+        try
+        {
+            while (reader.Read())
+            {
+                id = reader.GetInt32(0);
+              
+            }
+
+        }
+        catch (Exception e)
+        {
+
+            Debug.Log(e.Message);
+        }
+
+        reader.Close();
+        reader = null;
+        dbcmd.Dispose();
+        dbcmd = null;
+        dbconn.Close();
+        dbconn = null;
+        return id;
+    }
+
     public void borrarImgIncompleta(int id)
     {
 
@@ -416,7 +590,7 @@ public class conexionDB
         dbconn.Open(); //Open connection to the database.
         int id = 0;
         IDbCommand dbcmd = dbconn.CreateCommand();
-        string sqlQuery = "SELECT CAST (CASE WHEN  MAX(idImagen) IS NOT NULL AND divisor<> numCompletado THEN MAX(idImagen)  ELSE (-1) END AS INTEGER) AS MAXIMO, divisor, numCompletado"
+        string sqlQuery = "SELECT CAST (CASE WHEN  MAX(idImagen) IS NOT NULL  THEN MAX(idImagen)  ELSE (-1) END AS INTEGER) AS MAXIMO, divisor, numCompletado"
         + " from Imagenes JOIN ImagenesDesbloqueadas  ON(Imagenes.id = ImagenesDesbloqueadas.idImagen)AND(Imagenes.nombre = '" + palabra + "') AND(ImagenesDesbloqueadas.idUsuario = '" + idUsuario + "')";
 
         dbcmd.CommandText = sqlQuery;

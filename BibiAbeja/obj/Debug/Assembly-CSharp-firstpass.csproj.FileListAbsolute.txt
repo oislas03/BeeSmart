@@ -66,3 +66,5 @@ C:\Users\IoTITSON\Desktop\Oislas\BibiAbeja_Oscar\BibiAbeja\Temp\bin\Debug\UnityE
 C:\Users\IoTITSON\Desktop\Oislas\BibiAbeja_Oscar\BibiAbeja\Temp\bin\Debug\UnityEngine.VR.xml
 C:\Users\IoTITSON\Desktop\Oislas\BibiAbeja_Oscar\BibiAbeja\Temp\bin\Debug\libpxcclr.unity.xml
 C:\Users\IoTITSON\Desktop\Oislas\BibiAbeja_Oscar\BibiAbeja\obj\Debug\Assembly-CSharp-firstpass.csprojResolveAssemblyReference.cache
+C:\Users\IoTITSON\Documents\GitHub\BeeSmart\BibiAbeja\obj\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\IoTITSON\Documents\GitHub\BeeSmart\BibiAbeja\obj\Debug\Assembly-CSharp-firstpass.pdb

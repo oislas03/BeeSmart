@@ -28,7 +28,7 @@ public class dropDownHandler : MonoBehaviour {
         string valorReal = GameObject.Find(nombre).GetComponent<Dropdown>().options[valor].text;
 
         EstadoJuego.estadoJuego.setPalabra(valorReal);
-        Debug.Log("entroooooo");
+        //Debug.Log("entroooooo");
         switch (nombre)
         {
             case "btnFiguras":
