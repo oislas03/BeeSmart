@@ -338,16 +338,19 @@ public class HandCursor : MonoBehaviour
                         {
                             if (llamarCorutina)
                             {
-                                devolver_pieza();
-                                llamarCorutina = false;
+                                if (isCursorSyllable)
+                                {
+                                    llamarCorutina = false;
+                                    devolver_pieza();
+                                }
                             }
                         }
                         else if (isCursorPen)
                         {
                             if (llamarCorutina)
                             {
-                                agarrar_pieza();
                                 llamarCorutina = false;
+                                agarrar_pieza();
                             }
                             else
                             {
@@ -361,8 +364,8 @@ public class HandCursor : MonoBehaviour
                         {
                             if (llamarCorutina)
                             {
-                                colocar_pieza();
                                 llamarCorutina = false;
+                                colocar_pieza();
                             }
                         }
                     }
@@ -406,7 +409,7 @@ public class HandCursor : MonoBehaviour
             // Primero se añaden las piezas que corresponden
             if (i < tamanioFichas)
             {
-                arregloSprites[i] = (Resources.Load("Sprites/Fichas/"+carpeta+"/" + fichas[i].ToString(), typeof(Sprite)) as Sprite);
+                arregloSprites[i] = (Resources.Load("Sprites/Fichas/" + carpeta + "/" + fichas[i].ToString(), typeof(Sprite)) as Sprite);
             }
             // Si se requieren menos espacios de los máximos, se llenan los espacios disponibles con piezas al azar
             else if (i >= tamanioFichas && i < iterador)
@@ -478,6 +481,7 @@ public class HandCursor : MonoBehaviour
                 yield return new WaitForSeconds(1);
                 tiempoRestante--;
             }
+            cursorImage = Resources.Load("Textures/mano1", typeof(Texture2D)) as Texture2D;
 
             ray = Camera.main.ScreenPointToRay(mousePos);
 
@@ -491,8 +495,8 @@ public class HandCursor : MonoBehaviour
                     string silaba = objetoSilaba.GetComponent<SpriteRenderer>().sprite.name;
                     fichaAgarrada = silaba;
                     // Se carga la nueva textura y se le da el tamaño adecuado
-                    Texture2D imagen = Resources.Load("Textures/" + silaba, typeof(Texture2D)) as Texture2D;
-                    cursorImage = imagen;
+                    Texture2D imagen = Resources.Load("Textures/Fichas/" + carpeta + "/" + silaba, typeof(Texture2D)) as Texture2D;
+                    cursorImage = imagen; 
 
                     // Atributos de semáforo cambian de estado
                     isCursorPen = false;
@@ -566,6 +570,7 @@ public class HandCursor : MonoBehaviour
                         // Atributos de semáforo cambian de estado
                         isCursorPen = true;
                         isCursorSyllable = false;
+                        fichaAgarrada = "";
                         //llamarCorutina = true;
 
                         StartCoroutine("tiempoLibre");
@@ -627,7 +632,6 @@ public class HandCursor : MonoBehaviour
             Debug.Log("Tiempo restante en colocar pieza: " + tiempoRestante);
             yield return new WaitForSeconds(1);
             tiempoRestante--;
-
         }
         ray = Camera.main.ScreenPointToRay(mousePos);
 
@@ -646,6 +650,7 @@ public class HandCursor : MonoBehaviour
                 // Atributos de semáforo cambian de estado
                 isCursorPen = true;
                 isCursorSyllable = false;
+                fichaAgarrada = "";
                 //llamarCorutina = true;
                 StartCoroutine("tiempoLibre");
             }
