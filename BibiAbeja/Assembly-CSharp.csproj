@@ -120,6 +120,7 @@
      <Compile Include="Assets\Scripts\ButtonClick.cs" />
      <Compile Include="Assets\Scripts\Checador.cs" />
      <Compile Include="Assets\Scripts\ChecadorLetras.cs" />
+     <Compile Include="Assets\Scripts\DragAndDrop.cs" />
      <Compile Include="Assets\Scripts\DrawLine.cs" />
      <Compile Include="Assets\Scripts\EstadoJuego.cs" />
      <Compile Include="Assets\Scripts\HandCursor.cs" />

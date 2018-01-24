@@ -24,6 +24,9 @@ public class EstadoJuego : MonoBehaviour {
     private int numIntentosActual;
     private int numIntentos;
 
+    public bool isCursorPen = true;
+    public bool isCursorSyllable = false;
+    public bool llamarCorutina = true;
 
     public conexionDB conexion;
 

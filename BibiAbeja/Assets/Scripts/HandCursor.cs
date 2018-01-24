@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class HandCursor : MonoBehaviour
 {
-
     private PXCMSenseManager sm;
     private PXCMHandCursorModule cursorModule;
     private PXCMCursorConfiguration cursorConfig;
@@ -19,22 +18,23 @@ public class HandCursor : MonoBehaviour
     private PXCMPoint3DF32 adaptivePoints;
     private PXCMPoint3DF32 coordinates2d;
     private PXCMPoint3DF32 imagePoint;
-    private Ray ray;
-    private RaycastHit hit;
-    private bool isCursorPen = true;
-    private bool isCursorSyllable = false;
-    private bool llamarCorutina = true;
+    public Ray ray;
+    public RaycastHit hit;
+    public bool isCursorPen = true;
+    public bool isCursorSyllable = false;
+    public bool llamarCorutina = true;
     private EstadoJuego estadoJuego;
     private float tiempoDeJuego = 0;
     private int terminar = 0;
     private string carpeta = "";
 
-    public Texture2D cursorImage;
-    public Vector3 mousePos;
     public bool click;
-    public static HandCursor me;
     public delegate void JugadorEmpiezaDibujar(String id);
     public static event JugadorEmpiezaDibujar Contacto;
+
+    public Texture2D cursorImage;
+    public Vector3 mousePos;
+    public HandCursor me;
     public Vector3 v3 = new Vector3();
     public bool primeraVez = true;
     public string pasoNombre;
@@ -56,17 +56,36 @@ public class HandCursor : MonoBehaviour
     // variable para mantener conteo de un segundo en el juego
     public float tiempo;
 
+    //public DragAndDrop DragAndDrop = new DragAndDrop();
+
+    #region singleton
+    private static HandCursor _instance;
+    public static HandCursor Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                GameObject go = new GameObject("HandCursor");
+                go.AddComponent<HandCursor>();
+            }
+            return _instance;
+        }
+    }
+    #endregion singleton
+
     private void Awake()
     {
-        if (me == null)
+        if (_instance == null)
         {
-            me = this;
+            _instance = this;
 
         }
-        else if (me != this)
+        else if (_instance != this)
         {
             Destroy(gameObject);
         }
+
         pasoNombre = SceneManager.GetActiveScene().name;
         if (pasoNombre == "paso 3" || pasoNombre == "paso 4")
         {
@@ -391,7 +410,7 @@ public class HandCursor : MonoBehaviour
             carpeta = "Silabas";
             numeroRandom = 4;
             arregloSprites = new Sprite[5];
-            piezasAlAzar = new string[]{ "cua", "trian", "tan", "lla", "cir" };
+            piezasAlAzar = new string[] { "cua", "trian", "tan", "lla", "cir" };
             iterador = piezasAlAzar.Length;
         }
         else if (pasoNombre == "paso 4")
@@ -399,7 +418,7 @@ public class HandCursor : MonoBehaviour
             carpeta = "Letras";
             numeroRandom = 11;
             arregloSprites = new Sprite[12];
-            piezasAlAzar = new string[] { "c","v","m","s","p","q","w","r","t","y","g","j"};
+            piezasAlAzar = new string[] { "c", "v", "m", "s", "p", "q", "w", "r", "t", "y", "g", "j" };
             iterador = piezasAlAzar.Length;
         }
         Debug.Log("valor del iterador para repartir piezas: " + iterador);
@@ -496,7 +515,7 @@ public class HandCursor : MonoBehaviour
                     fichaAgarrada = silaba;
                     // Se carga la nueva textura y se le da el tamaño adecuado
                     Texture2D imagen = Resources.Load("Textures/Fichas/" + carpeta + "/" + silaba, typeof(Texture2D)) as Texture2D;
-                    cursorImage = imagen; 
+                    cursorImage = imagen;
 
                     // Atributos de semáforo cambian de estado
                     isCursorPen = false;
